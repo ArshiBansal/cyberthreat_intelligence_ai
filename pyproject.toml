@@ -1,0 +1,170 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "threat-incident-intelligence-platform"
+version = "1.0.0"
+description = "AI/NLP-Based Cybersecurity Incident Analysis and Intelligence Retrieval Platform using MongoDB, Jupyter, and Streamlit"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = { text = "MIT" }
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+keywords = [
+    "cybersecurity",
+    "threat-intelligence",
+    "nlp",
+    "machine-learning",
+    "mongodb",
+    "streamlit",
+    "jupyter"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Security",
+]
+
+dependencies = [
+    # Core
+    "numpy>=1.24.0,<2.1.0",
+    "pandas>=2.0.0,<2.3.0",
+    "python-dotenv>=1.0.0",
+    "tqdm>=4.65.0",
+
+    # MongoDB
+    "pymongo>=4.6.0,<5.0.0",
+    "dnspython>=2.4.0",
+
+    # Hugging Face (dataset via API only)
+    "datasets>=2.18.0,<3.0.0",
+    "huggingface-hub>=0.20.0",
+
+    # NLP
+    "nltk>=3.8.1",
+    "sentence-transformers>=2.5.0,<3.1.0",
+    "transformers>=4.38.0,<4.45.0",
+    "torch>=2.1.0",
+
+    # Machine Learning
+    "scikit-learn>=1.4.0,<1.6.0",
+    "joblib>=1.3.0",
+
+    # Visualization
+    "matplotlib>=3.8.0",
+    "plotly>=5.18.0",
+    "seaborn>=0.13.0",
+
+    # Jupyter
+    "jupyter>=1.0.0",
+    "notebook>=7.0.0",
+    "ipykernel>=6.29.0",
+    "ipywidgets>=8.1.0",
+
+    # Streamlit
+    "streamlit>=1.32.0,<1.40.0",
+]
+
+[project.optional-dependencies]
+# Stronger ML models
+ml-extra = [
+    "xgboost>=2.0.0",
+    "lightgbm>=4.3.0",
+]
+
+# Vector similarity (FAISS)
+vector = [
+    "faiss-cpu>=1.7.4",
+]
+
+# spaCy NLP pipeline
+spacy = [
+    "spacy>=3.7.0",
+]
+
+# Development tools
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.3.0",
+    "black>=24.0.0",
+    "mypy>=1.8.0",
+    "pre-commit>=3.6.0",
+]
+
+# Everything optional
+all = [
+    "threat-incident-intelligence-platform[ml-extra,vector,spacy,dev]",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/threat-incident-intelligence-platform"
+Documentation = "https://github.com/yourusername/threat-incident-intelligence-platform#readme"
+Repository = "https://github.com/yourusername/threat-incident-intelligence-platform"
+Dataset = "https://huggingface.co/datasets/threatcluster/threat-incident-clusters"
+
+[project.scripts]
+# Optional CLI entry points (if you add scripts later)
+# threat-ingest = "scripts.ingest_once:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["*"]
+exclude = ["tests*", "notebooks*", "streamlit_app*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.yaml", "*.yml"]
+
+# ------------------------------------------------------------
+# Tool configurations
+# ------------------------------------------------------------
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # function call in default argument
+]
+
+[tool.ruff.isort]
+known-first-party = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+include = '\.pyi?$'
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+exclude = [
+    "notebooks/",
+    "streamlit_app/",
+    "models/",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
