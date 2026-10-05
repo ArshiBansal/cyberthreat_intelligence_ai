@@ -1,0 +1,133 @@
+# ============================================================
+# Threat Incident Intelligence Platform - .gitignore
+# ============================================================
+
+# ---- Environment & Secrets ----
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+credentials/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ---- Virtual Environments ----
+.venv/
+venv/
+ENV/
+env/
+.env/
+.virtualenv/
+
+# ---- Jupyter Notebook ----
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+*.ipynb_checkpoints
+.jupyter/
+
+# ---- Model Artifacts (large files) ----
+models/*.joblib
+models/*.pkl
+models/*.pickle
+models/*.npy
+models/*.npz
+models/*.h5
+models/*.pt
+models/*.bin
+models/faiss_index*
+!models/.gitkeep
+!models/metadata.json
+
+# ---- Data / Cache (never store dataset files) ----
+data/
+datasets/
+*.csv
+*.json
+*.jsonl
+*.parquet
+*.arrow
+cache/
+.cache/
+hf_cache/
+transformers_cache/
+
+# ---- Streamlit ----
+.streamlit/secrets.toml
+.streamlit/config.toml
+
+# ---- Testing & Coverage ----
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+coverage.xml
+*.cover
+.hypothesis/
+
+# ---- IDE / Editors ----
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ---- OS generated ----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ---- Logs & Temporary ----
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# ---- Documentation builds ----
+docs/_build/
+site/
+
+# ---- Optional: keep empty directories ----
+!**/__init__.py
+!models/.gitkeep
