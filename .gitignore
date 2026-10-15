@@ -1,17 +1,11 @@
-# ============================================================
-# Threat Incident Intelligence Platform - .gitignore
-# ============================================================
-
-# ---- Environment & Secrets ----
+# Environment & secrets
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 *.pem
 *.key
-secrets/
-credentials/
 
-# ---- Python ----
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -36,98 +30,64 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# ---- Virtual Environments ----
+# Virtual environments
 .venv/
 venv/
 ENV/
 env/
 .env/
-.virtualenv/
 
-# ---- Jupyter Notebook ----
+# Jupyter
 .ipynb_checkpoints/
 */.ipynb_checkpoints/
 *.ipynb_checkpoints
-.jupyter/
 
-# ---- Model Artifacts (large files) ----
-models/*.joblib
-models/*.pkl
-models/*.pickle
-models/*.npy
-models/*.npz
-models/*.h5
-models/*.pt
-models/*.bin
-models/faiss_index*
-!models/.gitkeep
-!models/metadata.json
-
-# ---- Data / Cache (never store dataset files) ----
-data/
-datasets/
-*.csv
-*.json
-*.jsonl
-*.parquet
-*.arrow
-cache/
-.cache/
-hf_cache/
-transformers_cache/
-
-# ---- Streamlit ----
+# Streamlit
 .streamlit/secrets.toml
-.streamlit/config.toml
 
-# ---- Testing & Coverage ----
-.coverage
-.coverage.*
-htmlcov/
-.tox/
-.nox/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-coverage.xml
-*.cover
-.hypothesis/
+# Artifacts (models, vectorizers, metadata – large binary files)
+artifacts/models/
+artifacts/vectorizers/
+artifacts/metadata/
+!artifacts/.gitkeep
+!artifacts/models/.gitkeep
+!artifacts/vectorizers/.gitkeep
+!artifacts/metadata/.gitkeep
 
-# ---- IDE / Editors ----
+# Data (dataset is always fetched via Hugging Face API – never commit downloads)
+data/
+*.csv
+*.parquet
+*.jsonl
+*.arrow
+*.feather
+
+# IDE & OS
 .idea/
 .vscode/
 *.swp
 *.swo
 *~
-.project
-.pydevproject
-.settings/
-*.sublime-project
-*.sublime-workspace
-
-# ---- OS generated ----
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# ---- Logs & Temporary ----
+# Logs & temporary files
 *.log
 logs/
 tmp/
 temp/
-*.tmp
-*.bak
-*.swp
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+.tox/
+.nox/
 
-# ---- Documentation builds ----
-docs/_build/
-site/
-
-# ---- Optional: keep empty directories ----
-!**/__init__.py
-!models/.gitkeep
+# MongoDB local dumps (if any)
+dump/
+*.bson
+*.wt
