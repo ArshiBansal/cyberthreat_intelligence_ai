@@ -58,4 +58,4 @@ def get_logger(name: str = "cyberthreat_intelligence_ai") -> logging.Logger:
     logger = logging.getLogger(name)
     if not logger.handlers:
         return setup_logging(name=name)
-    return logger
+    return logger 
