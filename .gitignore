@@ -1,7 +1,7 @@
 # Environment & secrets
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 *.pem
 *.key
 
@@ -23,69 +23,48 @@ parts/
 sdist/
 var/
 wheels/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-.nox/
-.cache
-.mypy_cache/
-.ruff_cache/
-.pytype/
-cython_debug/
 
 # Virtual environments
 .venv/
 venv/
 ENV/
 env/
-env.bak/
-venv.bak/
+.env/
 
-# Jupyter Notebook
+# Jupyter
 .ipynb_checkpoints/
-*/.ipynb_checkpoints/*
+*/.ipynb_checkpoints/
 *.ipynb_checkpoints
-
-# Project data & artifacts
-
-# Raw / processed datasets (keep structure, ignore large files)
-data/raw/*
-!data/raw/.gitkeep
-data/processed/*
-!data/processed/.gitkeep
-
-# Model artifacts (large binary files)
-artifacts/models/*
-!artifacts/models/.gitkeep
-artifacts/vectorizers/*
-!artifacts/vectorizers/.gitkeep
-artifacts/metadata/*
-!artifacts/metadata/.gitkeep
-
-# Temporary exports / dumps
-*.csv
-!data/raw/.gitkeep
-*.parquet
-*.pkl
-*.joblib
-*.h5
-*.hdf5
 
 # Streamlit
 .streamlit/secrets.toml
-.streamlit/config.toml
+
+# Artifacts (models, vectorizers, metadata – large binary files)
+artifacts/models/
+artifacts/vectorizers/
+artifacts/metadata/
+!artifacts/.gitkeep
+!artifacts/models/.gitkeep
+!artifacts/vectorizers/.gitkeep
+!artifacts/metadata/.gitkeep
+
+# Data (dataset is always fetched via Hugging Face API – never commit downloads)
+data/
+*.csv
+*.parquet
+*.jsonl
+*.arrow
+*.feather
 
 # IDE & OS
-.vscode/
 .idea/
+.vscode/
 *.swp
 *.swo
 *~
@@ -98,18 +77,17 @@ desktop.ini
 logs/
 tmp/
 temp/
-*.tmp
-*.bak
-*.swp
-
-# Testing & coverage
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
 .coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
+.tox/
+.nox/
 
-# Distribution / packaging
-*.manifest
-*.spec
+# MongoDB local dumps (if any)
+dump/
+*.bson
+*.wt
