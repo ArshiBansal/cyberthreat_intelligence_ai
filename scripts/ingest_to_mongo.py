@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import argparse
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -27,6 +27,11 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from config import settings
+
+
+def utc_now_iso() -> str:
+    """Return current UTC time as ISO-8601 string with Z suffix (timezone-aware)."""
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def clean_text(text: Any) -> str:
@@ -100,7 +105,7 @@ def row_to_document(row: pd.Series) -> Dict[str, Any]:
         "url": row.get("url"),
         "first_reported": safe_iso(row.get("first_reported")),
         "last_reported": safe_iso(row.get("last_reported")),
-        "ingested_at": datetime.utcnow().isoformat() + "Z",
+        "ingested_at": utc_now_iso(),
     }
     return doc
 
@@ -138,7 +143,6 @@ def ingest(
     print()
 
     # 1. Load dataset from Hugging Face
-
     print("Loading dataset from Hugging Face (this may take a moment)...")
     ds = load_dataset(settings.HF_DATASET_NAME, split=settings.HF_DATASET_SPLIT)
     df = ds.to_pandas()
@@ -155,7 +159,6 @@ def ingest(
     print(f"Records with valid cluster_id: {len(df):,}")
 
     # 2. Connect to MongoDB
-
     client = get_mongo_client()
     db = client[settings.MONGO_DB_NAME]
     collection = db[settings.COLLECTION_INCIDENTS]
@@ -170,7 +173,6 @@ def ingest(
     print("Unique index on cluster_id ensured.")
 
     # 3. Batch upsert
-
     total = len(df)
     upserted = 0
     modified = 0
@@ -207,10 +209,14 @@ def ingest(
             upserted += bwe.details.get("nUpserted", 0)
             modified += bwe.details.get("nModified", 0)
             errors += len(bwe.details.get("writeErrors", []))
-            print(f"\n[WARN] BulkWriteError in batch {start}-{end}: {len(bwe.details.get('writeErrors', []))} errors")
+            print(
+                f"\n[WARN] BulkWriteError in batch {start}-{end}: "
+                f"{len(bwe.details.get('writeErrors', []))} errors"
+            )
 
+    # ------------------------------------------------------------------
     # 4. Summary
-
+    # ------------------------------------------------------------------
     final_count = collection.count_documents({})
     print("\n" + "=" * 70)
     print("INGESTION COMPLETE")
