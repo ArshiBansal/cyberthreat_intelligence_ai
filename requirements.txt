@@ -1,0 +1,29 @@
+# Core
+python-dotenv>=1.0.1
+pandas>=2.2.2
+numpy>=1.26.4
+
+# Data loading (Hugging Face – dataset is always fetched via API)
+datasets>=2.20.0
+
+# Machine Learning & classic NLP (scikit-learn only)
+scikit-learn>=1.5.1
+joblib>=1.4.2
+
+# MongoDB – Local Community Server only
+pymongo>=4.8.0
+
+# Streamlit application
+streamlit>=1.37.0
+plotly>=5.22.0          # for interactive charts in the dashboard
+
+# Jupyter research environment
+jupyter>=1.0.0
+notebook>=7.2.1
+ipykernel>=6.29.5
+matplotlib>=3.9.1
+seaborn>=0.13.2
+
+# Utilities
+tqdm>=4.66.4
+python-dateutil>=2.9.0
