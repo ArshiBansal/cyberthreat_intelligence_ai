@@ -1,17 +1,11 @@
-# ============================================================
-# Threat Incident Intelligence Platform - .gitignore
-# ============================================================
-
-# ---- Environment & Secrets ----
+# Environment & secrets
 .env
 .env.local
 .env.*.local
 *.pem
 *.key
-secrets/
-credentials/
 
-# ---- Python ----
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -29,93 +23,77 @@ parts/
 sdist/
 var/
 wheels/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.cache
+.mypy_cache/
+.ruff_cache/
+.pytype/
+cython_debug/
 
-# ---- Virtual Environments ----
+# Virtual environments
 .venv/
 venv/
 ENV/
 env/
-.env/
-.virtualenv/
+env.bak/
+venv.bak/
 
-# ---- Jupyter Notebook ----
+# Jupyter Notebook
 .ipynb_checkpoints/
-*/.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
 *.ipynb_checkpoints
-.jupyter/
 
-# ---- Model Artifacts (large files) ----
-models/*.joblib
-models/*.pkl
-models/*.pickle
-models/*.npy
-models/*.npz
-models/*.h5
-models/*.pt
-models/*.bin
-models/faiss_index*
-!models/.gitkeep
-!models/metadata.json
+# Project data & artifacts
 
-# ---- Data / Cache (never store dataset files) ----
-data/
-datasets/
+# Raw / processed datasets (keep structure, ignore large files)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Model artifacts (large binary files)
+artifacts/models/*
+!artifacts/models/.gitkeep
+artifacts/vectorizers/*
+!artifacts/vectorizers/.gitkeep
+artifacts/metadata/*
+!artifacts/metadata/.gitkeep
+
+# Temporary exports / dumps
 *.csv
-*.json
-*.jsonl
+!data/raw/.gitkeep
 *.parquet
-*.arrow
-cache/
-.cache/
-hf_cache/
-transformers_cache/
+*.pkl
+*.joblib
+*.h5
+*.hdf5
 
-# ---- Streamlit ----
+# Streamlit
 .streamlit/secrets.toml
 .streamlit/config.toml
 
-# ---- Testing & Coverage ----
-.coverage
-.coverage.*
-htmlcov/
-.tox/
-.nox/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-coverage.xml
-*.cover
-.hypothesis/
-
-# ---- IDE / Editors ----
-.idea/
+# IDE & OS
 .vscode/
+.idea/
 *.swp
 *.swo
 *~
-.project
-.pydevproject
-.settings/
-*.sublime-project
-*.sublime-workspace
-
-# ---- OS generated ----
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# ---- Logs & Temporary ----
+# Logs & temporary files
 *.log
 logs/
 tmp/
@@ -124,10 +102,14 @@ temp/
 *.bak
 *.swp
 
-# ---- Documentation builds ----
-docs/_build/
-site/
+# Testing & coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
 
-# ---- Optional: keep empty directories ----
-!**/__init__.py
-!models/.gitkeep
+# Distribution / packaging
+*.manifest
+*.spec
