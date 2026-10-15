@@ -38,7 +38,6 @@ from app.tabs.about import render_about
 def _configure_page() -> None:
     st.set_page_config(
         page_title="Cyber Threat Intelligence AI",
-        page_icon="🛡️",
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -46,7 +45,7 @@ def _configure_page() -> None:
 
 def _render_sidebar() -> None:
     with st.sidebar:
-        st.title("🛡️ CTI Analytics")
+        st.title(" Threat Analytics")
         st.caption("Defensive Cyber Threat Intelligence")
         st.markdown("---")
         st.markdown(
