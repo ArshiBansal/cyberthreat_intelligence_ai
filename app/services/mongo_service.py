@@ -7,7 +7,14 @@ used by the tabs, with graceful handling when MongoDB is down.
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# Ensure project root is on sys.path when this file is run directly
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.db.connection import check_connection, get_database
 from src.db.repositories import (
@@ -31,7 +38,9 @@ class MongoService:
         self._meta_repo: Optional[ModelMetadataRepository] = None
         self._analysis_repo: Optional[AnalysisResultsRepository] = None
 
+    # ------------------------------------------------------------------
     # Connection helpers
+    # ------------------------------------------------------------------
     @property
     def is_available(self) -> bool:
         """Return True if MongoDB is reachable."""
@@ -40,7 +49,9 @@ class MongoService:
     def ping(self) -> bool:
         return self.is_available
 
+    # ------------------------------------------------------------------
     # Lazy repository accessors
+    # ------------------------------------------------------------------
     @property
     def incidents(self) -> IncidentRepository:
         if self._incident_repo is None:
@@ -65,7 +76,9 @@ class MongoService:
             self._analysis_repo = AnalysisResultsRepository()
         return self._analysis_repo
 
+    # ------------------------------------------------------------------
     # Convenience methods used by multiple tabs
+    # ------------------------------------------------------------------
     def get_incident_count(self) -> int:
         if not self.is_available:
             return 0

@@ -8,9 +8,16 @@ are missing.
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
+
+# Ensure project root is on sys.path when this file is run directly
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.artifacts.manager import ArtifactManager
 from src.data.cleaner import clean_text
